@@ -1,280 +1,359 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>G.H.SHARMA</title>
-        <link rel="icon" type="image/png" href="../media/FAVI.png">
-        <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+function implementingGSAP() {
+    gsap.registerPlugin(ScrollTrigger);
 
-        <link rel="stylesheet" href="about.css">
-    </head>
-    <body>
+    const locoScroll = new LocomotiveScroll({
+        el: document.querySelector("#main"),
+        smooth: true,
 
-        <div id="cursor"></div>
-        <div id="landscapeMessage">Please rotate your phone and relaod</div>
+        // for tablet smooth
+        tablet: { smooth: true },
 
-        <div id="main">
-            <div id="background">
-                <video id="videoBG" autoplay muted loop>
-                    <source src="../media/mbBG (1).mp4" type="video/mp4">
-                    <!-- Add additional video sources here for different formats -->
-                </video>
-                <div id="page1">
-                    <div id="page1-content">
-                        <nav id="navbar">
-                            <a href="../index.html"><button
-                                    id="logo">G.H.SHARMA</button></a>
-                            <div id="nav-allbtns">
-                                <div id="navigate">
-                                    <a href="./about.html"><button
-                                            class="nav-btns"
-                                            id="about_btn">ABOUT</button></a>
-                                    <a
-                                        href="https://drive.google.com/file/d/1pjjT_wQGfQbs4FMHce6Vwxp3kL-cqh_1/view"><button
-                                            class="nav-btns">RESUME</button></a>
-                                </div>
-                                <a href="mailto:govindharsh42@gmail.com"
-                                    id="a-free"><button id="freelance">AVAILABLE
-                                        FOR FREELANCE</button></a>
-                            </div>
-                            <div class="hamburger">
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                                <div class="bar"></div>
-                            </div>
-                        </nav>
+        // for mobile
+        smartphone: { smooth: true }
+    });
+    locoScroll.on("scroll", ScrollTrigger.update);
 
-                        <div id="page1-top">
-                            <p> <span>The developer's role is like a considerate
-                                    host</span>
-                                <span>who anticipates their guests' needs
-                                    and convert</span>
-                                <span>them in something
-                                    interactive.</span></p>
+    ScrollTrigger.scrollerProxy("#main", {
+        scrollTop(value) {
+            return arguments.length
+                ? locoScroll.scrollTo(value, 0, 0)
+                : locoScroll.scroll.instance.scroll.y;
+        },
+        getBoundingClientRect() {
+            return {
+                top: 0,
+                left: 0,
+                width: window.innerWidth,
+                height: window.innerHeight
+            };
+        }
 
-                            <div id="arrow"> SCROLL ↓</div>
+        // follwoing line is not required to work pinning on touch screen
 
-                            <div id="img-container">
-                                <img src="../media/dp2.jpg" alt>
-                            </div>
-                        </div>
+        /* pinType: document.querySelector(".smooth-scroll").style.transform
+          ? "transform"
+          : "fixed"*/
+    });
 
-                        <div id="page1-bottom">
-                            <p> <span>↪ </span> ME in mind ?</p>
-                            <p>06 Jan / 2003</p>
-                            <p>INDIA</p>
-                            <p>
-                                <span>Strong focus on crafting user interfaces
-                                    that</span>
-                                <span> incorporate seamless motion and</span>
-                                <span>interactivity.</span>
 
-                            </p>
-                        </div>
 
-                    </div>
-                </div>
-                <div id="page2">
-                    <div class="line" id="line1"></div>
-                    <div id="page2-content">
+    ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
 
-                        <div id="pagetop">
-                            <p>01/</p>
-                            <p>/04</p>
+    ScrollTrigger.refresh();
 
-                        </div>
+}
+implementingGSAP();
 
-                        <div id="page2-main">
-                            <p>about me</p>
-                            <h2>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span>Hello, I'm Govind, a Final year
-                                    Computer</span>
-                                <span>Science Engineering student. I'm
-                                    passionate
-                                    about</span>
-                                <span>creating connected brands,
-                                    commerce
-                                    solutions,</span>
-                                <span> products,
-                                    and web experiences.</span>
-                                <br><br>
-                                <span>When I'm not developing, I enjoy
-                                    weightlifting,</span>
-                                <span>scoring goals on the pitch and
-                                    continuing my
-                                    quest</span>
-                                <span> to find the best samosas.</span>
 
-                            </h2>
-                        </div>
-                    </div>
-                </div>
+function cursorEffect() {
+    var main = document.querySelector("#main");
+    var btn = document.querySelector("#freelance");
+    var dp = document.querySelector("img");
+    var cursor = document.querySelector("#cursor");
 
-                <div id="page3">
-                    <div class="line" id="line2"></div>
-                    <div id="page3-content">
-                        <div id="pagetop">
-                            <p>02/</p>
-                            <p>/04</p>
-                        </div>
+    document.addEventListener("mousemove", function (event) {
+        gsap.to(cursor, {
+            x: event.clientX,
+            y: event.clientY
+        });
+    });
 
-                        <div id="page3-main">
-                            <p>my work <br> experience</p>
+    main.addEventListener("mouseenter", function () {
+        gsap.to(cursor, {
+            scale: 1,
+            opacity: 1
+        });
+    });
+    main.addEventListener("mouseleave", function () {
+        gsap.to(cursor, {
+            scale: 0,
+            opacity: 0
+        });
+    });
+    btn.addEventListener("mouseenter", function () {
+        gsap.to(cursor, {
+            scale: 0,
+            opacity: 0
+        });
+    });
 
-                            <div id="page3-content">
-                                <div class="page3-container">
-                                    <h4>WEB DEVELOPER</h4>
-                                    <h3> ▫ SUVIDHA FOUNDATION <br> ▫
-                                        QNOX
-                                        ADVERTISINGS </h3>
-                                </div>
-                                <div class="page3-container">
-                                    <h4>OPEN SOURCE <br> DEVELOPER </h4>
-                                    <h3>▫ HACKOTBERFEST <br>▫ HACK2SKILL
-                                        SSOC
-                                        2.0
-                                    </h3>
-                                </div>
-                                <div class="page3-container">
-                                    <h4>CORE TEAM MEMBER </h4>
-                                    <h3>▫ GOOGLE-DSC SRCASW <br></h3>
-                                </div>
-                                <div class="page3-container">
-                                    <h4> MENTOR </h4>
-                                    <h3>▫ GSSoC - GirlScript <br> Summer of Code
-                                        ' 2024
-                                        <br></h3>
-                                </div>
-                            </div>
-                        </div>
+    btn.addEventListener("mouseleave", function () {
+        gsap.to(cursor, {
+            scale: 1,
+            opacity: 1
+        });
+    });
+    dp.addEventListener("mouseenter", function () {
+        gsap.to(cursor, {
+            height: "100px",
+            width: "100px",
+        });
+    });
 
-                    </div>
-                </div>
+    dp.addEventListener("mouseleave", function () {
+        gsap.to(cursor, {
+            height: "10px",
+            width: "10px",
+            opacity: 1
+        });
+    });
 
-                <div id="page4">
-                    <div class="line" id="line3"></div>
-                    <div id="page4-content">
 
-                        <div id="pagetop">
-                            <p>03/</p>
-                            <p>/04</p>
+}
+cursorEffect();
 
-                        </div>
 
-                        <div id="page4-main">
-                            <p>skills</p>
-                            <h2>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+function backgroundEffect() {
+    document.addEventListener("mousemove", function (event) {
+        const x = (window.innerWidth - event.clientX) / window.innerWidth * 100;
+        const y = (window.innerHeight - event.clientY) / window.innerHeight * 100;
+        const backgroundPosition = `${x}% ${y}%`;
+        document.getElementById("background").style.backgroundPosition = backgroundPosition;
+    });
 
-                                <span> C++ </span> ▫ <span> PYTHON </span> ▫
-                                <span> JAVA </span> ▫
-                                <span>
-                                    HTML5 </span> ▫ <span> CSS </span> ▫ <span>
-                                    BOOTSTRAP
-                                </span> ▫ <span> JAVASCRIPT </span> ▫ <span>
-                                    GSAP
-                                </span> ▫ <span> REACT.JS </span> ▫ <span>
-                                    TAILWIND
-                                </span> ▫ <span> NEXT.JS </span> ▫ <span> REDUX
-                                </span> ▫ <span> JQUERY </span> ▫ <span> NODE.JS
-                                </span> ▫ <span> EXPRESS.JS </span> ▫ <span>
-                                    DJANGO
-                                </span> ▫ <span> PostgreSQL </span> ▫ <span>
-                                    CRUD
-                                    operations
-                                </span> ▫ <span> GIT </span> ▫ <span> FIREBASE
-                                </span> ▫ <span> FIGMA </span> ▫ <span> CANVA
-                                </span>
-                            </h2>
-                        </div>
-                    </div>
 
-                </div>
+}
+backgroundEffect();
 
-                <div id="page6">
-                    <div class="line" id="line5"></div>
-                    <div id="pagetop">
-                        <p>04/</p>
-                        <p>/04</p>
-                    </div>
-                    <div id="page6-content">
-                        <div id="connectbox">
-                            <h2>GOT A PROJECT IN MIND?</h2>
-                            <h1>LET'S CONNECT !</h1>
+function animationsGSAP() {
 
-                            <div class="eyes">
-                                <div class="eye">
-                                    <div class="ball"></div>
-                                </div>
-                                <div class="eye">
-                                    <div class="ball"></div>
-                                </div>
-                            </div>
+    var animate = gsap.timeline()
+    animate.from("#logo, #nav-btns, #arrow , #page1-top p span, #page1-bottom p span", {
+        y: -100,
+        duration: 1,
+        opacity: 0,
+        stagger: .4,
+        ease: "power2.out",
 
-                        </div>
+        // y: 0,
+        // stagger: 0.5,
+        // opacity: 0,
+        // // delay: 0.2,
+        // duration: 5,
 
-                        <div id="socials">
+    })
 
-                            <div class="social-div">
-                                <a
-                                    href="https://www.linkedin.com/in/govind-harsh-sharma/">
-                                    <h1>LINKEDIN</h1>
-                                    <h1>LINKEDIN</h1>
-                                </a>
-                            </div>
-                            <div class="social-div">
-                                <a
-                                    href="https://www.instagram.com/ssh.harshu/">
-                                    <h1>INSTAGRAM</h1>
-                                    <h1>INSTAGRAM</h1>
-                                </a>
-                            </div>
-                            <div class="social-div">
-                                <a
-                                    href="https://twitter.com/GovindHarsh11">
-                                    <h1>TWITTER</h1>
-                                    <h1>TWITTER</h1>
-                                </a>
-                            </div>
-                            <div class="social-div">
-                                <a href="https://github.com/ghsharma">
-                                    <h1>GITHUB</h1>
-                                    <h1>GITHUB</h1>
-                                </a>
-                            </div>
+    animate.to("#arrow", {
+        y: 10,
+        repeat: -1,
+        duration: .7,
+        yoyo: 1
+    })
 
-                        </div>
-                        <div id="message">
-                            <div>
-                                <h4>feel free to connect with me on
-                                    social .
-                                </h4>
-                            </div>
-                            <div>
-                                <h4> By GHS | ©2024 All rights
-                                    reserved.</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+}
+animationsGSAP()
 
-        <script
-            src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
-            integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
-            integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"></script>
-        <script src="about.js"></script>
-    </body>
-</html>
+function hamburger() {
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const hamburger = document.querySelector(".hamburger");
+        const navmenu = document.querySelector("#nav-allbtns");
+
+        hamburger.addEventListener("click", function () {
+            hamburger.classList.toggle("active");
+            navmenu.classList.toggle("active");
+        });
+
+        navmenu.addEventListener("click", function () {
+            hamburger.classList.remove("active");
+            navmenu.classList.remove("active");
+        });
+    });
+
+}
+hamburger()
+
+
+function page2() {
+
+    var page2 = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#page2",
+            scroller: "#main",
+            start: "top 60%",
+            end: "top 0%",
+            scrub: 1
+        }
+    })
+
+    page2.from("#page2-main p", {
+        y: -50,
+        duration: 5,
+        opacity: 0,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+    page2.from("#page2-main h2 span", {
+        y: -50,
+        duration: 5,
+        opacity: 0,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+
+
+    page2.from("#line1", {
+        x: "-120%",
+        scrollTrigger: {
+            trigger: "#page2",
+            scroller: "#main",
+            start: "top 50%",
+            end: "top 20%",
+            scrub: 1
+        }
+    })
+}
+page2()
+
+function page3() {
+
+    var page3 = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#page3",
+            scroller: "#main",
+            start: "top 60%",
+            end: "top 0%",
+            scrub: 1
+        }
+    })
+
+    page3.from("#page3-main p", {
+        y: -50,
+        duration: 5,
+        opacity: 0,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+    page3.from("#page3-main h4", {
+        y: -50,
+        duration: 5,
+        opacity: 0,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+
+
+    page3.from("#line2", {
+        x: "-120%",
+        scrollTrigger: {
+            trigger: "#page3",
+            scroller: "#main",
+            start: "top 50%",
+            end: "top 20%",
+            scrub: 1
+        }
+    })
+}
+page3()
+
+function page4() {
+
+    var page4 = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#page4",
+            scroller: "#main",
+            start: "top 80%",
+            end: "top 0%",
+            scrub: 1
+        }
+    })
+
+    page4.from("#page4-main p", {
+        y: -50,
+        duration: 5,
+        opacity: 0,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+    page4.from("#page4-main h2 span", {
+        y: -100,
+        duration: 5,
+        opacity: .2,
+        stagger: 4,
+        ease: "power1.out",
+
+    });
+
+
+    page4.from("#line3", {
+        x: "-120%",
+        scrollTrigger: {
+            trigger: "#page4",
+            scroller: "#main",
+            start: "top 50%",
+            end: "top 20%",
+            scrub: 1
+        }
+    })
+}
+page4()
+
+function page6() {
+    var page6 = gsap.timeline({
+        scrollTrigger: {
+            trigger: "#page6-content",
+            scroller: "#main",
+            start: "top 70%",
+            end: "top 0%",
+            scrub: 3
+        }
+    });
+
+    page6.from("#line5", {
+        x: "-120%",
+        scrollTrigger: {
+            trigger: "#page6",
+            scroller: "#main",
+            start: "top 70%",
+            end: "top 40%",
+            scrub: 1 // Adjust scrubbing speed if needed
+        }
+    })
+
+    page6.from(".eyes", {
+        scale: 0,
+        opacity: 0.5,
+        duration: 5, // Adjust duration to slow down the animation
+    });
+
+    page6.to(".eyes", {
+        opacity: 1,
+        duration: 5, // Adjust duration to match the previous animation
+        ease: "power1.out"
+    });
+
+
+}
+page6()
+
+
+
+function eyes() {
+
+    let Ball = document.getElementsByClassName("ball");
+    document.onmousemove = function () {
+        //get innerWidth,innerheight for browser
+
+        //get horizontal coordinate of the onmousemove
+        let x = (event.clientX * 100) / window.innerWidth + "%";
+
+        //get the verticle coordinate of onmousemove
+        let y = (event.clientY * 100) / window.innerHeight + "%";
+
+        for (let i = 0; i < 2; i++) {
+            Ball[i].style.left = x;
+            Ball[i].style.top = y;
+            Ball[i].style.transform = "translate(-" + x + ", -" + y + ")";
+        }
+    };
+
+
+}
+eyes()
+
+document.addEventListener('contextmenu', event => event.preventDefault());
